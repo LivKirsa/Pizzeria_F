@@ -1,1 +1,3 @@
 *.class
+*.bak_000f
+*.lck

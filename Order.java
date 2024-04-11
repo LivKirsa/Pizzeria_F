@@ -1,26 +1,20 @@
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order{
 
-   private LocalDateTime timeReady;
-
-//orderContents: ArrayListe
- //LocalTime timeReady (10,43,12) time, minute, second;
- // timeReady();
- 
+   private LocalTime timeReady;
    private double priceSum;
    private int orderID;
    private String customerName;
-   //Livs idea but not ready private LocalDateTime timeReady;
    private boolean isOrderActive;
    private List<Pizza> orderedPizzas;
    
    private static int counter = 1;
   
-   
-   public void Order(String customerName, List<Pizza> orderedPizzas, LocalDateTime timeReady){
+   // Constructor for Order Objects
+   public Order(String customerName, List<Pizza> orderedPizzas, LocalTime timeReady){
       this.customerName = customerName;
       this.orderedPizzas = new ArrayList<>(orderedPizzas);
       this.priceSum = calculatePriceSum();
@@ -62,7 +56,7 @@ public class Order{
 // No setter for priceSum, as that is generated automatically
       
 // Getter for timeReady
-   public LocalDateTime getTimeReady() {
+   public LocalTime getTimeReady() {
       return timeReady;
       }
 

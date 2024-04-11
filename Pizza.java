@@ -1,4 +1,3 @@
-
 public class Pizza{ //class for dealing with object
 
    
@@ -15,7 +14,7 @@ public class Pizza{ //class for dealing with object
       this.name = name;
       this.price = price;
       counter++; // Ensures the next pizza will be assigned to the next number on the menu
-}
+   }
 
    public String getName(){ // Getter for getting name of pizza
       return name;
@@ -44,7 +43,7 @@ public class Pizza{ //class for dealing with object
    
    // Method for printing all information about a pizza
    public void printPizza(){
-   System.out.println(number + "." + " " + name + ". Price: " + price + " DKK."); 
+   System.out.println(number + "." + " " + name + ". Price: " + price + " DKK.\n"); 
    
    }  
  }      

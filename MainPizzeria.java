@@ -2,17 +2,16 @@ import java.util.Scanner;
 import java.sql.*;
 import java.util.Arrays;
 
-//Class - menu
+public class MainPizzeria{ // Main Class of the system
 
-public class MainPizzeria{
-public static void main (String [] args){
+   public static void main (String [] args){ // Main method of the system
 
-   System.out.println("Hvilken pizza vil du bestille?");
+   System.out.println("Which pizza(s) would you like to order?");
    Scanner console = new Scanner(System.in);
    
    //console.nextInt();
 
-   System.out.println("Hvad tid vil du hente den?");
+   System.out.println("When would you like to pick up the order?");
      //console.nextInt();
      
    Menu menu = new Menu();

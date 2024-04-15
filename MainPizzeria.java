@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.InputMismatchException;
+import java.lang.IndexOutOfBoundsException;
 import java.time.LocalTime;
 
 public class MainPizzeria{ // Main Class of the system
@@ -17,18 +18,23 @@ public class MainPizzeria{ // Main Class of the system
 
       int pizzas = pizzasScan(); // Uses method pizzasScan defined below to ask the user how many pizzas they want. pizzas = the amount of pizzas the customer would like to order.
       int[] tempArray = new int[pizzas]; // tempArray = Temporary array
-
-      for (int i = 0; i < pizzas; i++){ // Store the chosen pizzas in an ArrayList scannerOrderArrayList
-         System.out.print("Pizza nr. " + (i + 1) + " for your order is: ");
-         try { 
-         int input = scanner1.nextInt();
-         tempArray[i] = input;
-         scannerOrderArrayList.add(menu.menuList.get(input - 1));
-         catch (IndexOutOfBoundsException e) {
-         System.err.println("Errror. Please choose a number from the menu ex. 3 or 1.");
-         }
-         
-         }
+      
+      
+      // We need to solve this, idk how
+      __________________________________________________________________________
+      do {
+      try {
+         for (int i = 0; i < pizzas; i++){ // Store the chosen pizzas in an ArrayList scannerOrderArrayList
+            System.out.print("Pizza nr. " + (i + 1) + " for your order is: ");
+            int input = scanner1.nextInt();
+            tempArray[i] = input;
+            scannerOrderArrayList.add(menu.menuList.get(input - 1));
+            }
+     } catch (IndexOutOfBoundsException e) {
+         System.err.println("Error. Please choose a number from the menu");
+         } 
+     } while (true);
+     ____________________________________________________________________________
          
          System.out.println("You're ordering " + scannerOrderArrayList.size() + " pizzas.");
          System.out.println("What is your name?");
@@ -54,12 +60,17 @@ public class MainPizzeria{ // Main Class of the system
    // Method for scanning user input when asked how many pizzas they would like to order
    public static int pizzasScan() { 
       int pizzas;
+      int maxPizzas = 10;
       
       do {
          System.out.println("How many pizzas would you like to order? ");
          try {
-         Scanner pizzascanner = new Scanner(System.in);
-         pizzas = pizzascanner.nextInt();
+         Scanner pizzaScanner = new Scanner(System.in);
+         pizzas = pizzaScanner.nextInt();
+            if (pizzas > maxPizzas) {
+               System.err.println("Sorry, we cannot handle orders larger than " + maxPizzas + " pizzas."); // This makes no sense, as Alfonso is the one taking the orders. We just did it for fun. Can be used for future online system. 
+                  System.exit(1); // Terminate the program
+            }
          return pizzas; // Exits the loop if a valid amount of pizzas is entered
       } catch (InputMismatchException e) {
          System.err.println("Error. Please enter a number ex. 5 or 2."); 
@@ -69,9 +80,7 @@ public class MainPizzeria{ // Main Class of the system
     }
     
     // Method for scanning user input when asked which pizza they would like from the menu.
-    public static int whichPizza() {
-      int 
-   
+
    }
    
    

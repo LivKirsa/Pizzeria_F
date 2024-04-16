@@ -12,7 +12,7 @@ public class Menu{ // This class enables the main method to construct a menuList
 
 }
    // Method for printing the menu (information about each Pizza object constructed above)
-   public void printList(){ 
+   public void printMenuList(){ 
    System.out.println("Pizza Menu: ");
    //for loop with array
    for (Pizza pizza : menuList){

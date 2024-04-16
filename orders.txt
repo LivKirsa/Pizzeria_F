@@ -85,3 +85,5 @@ Total Price: 167.0
 
 [1] Active 12:30 >LivElskerPizzaer< Pizzas: 24, 16, 6, 21, 30, 9, 2, 23, 20, 19, Total Price: 626.0 DKK.
 
+
+ ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ 

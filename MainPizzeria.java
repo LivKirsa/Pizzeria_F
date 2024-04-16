@@ -46,10 +46,18 @@ public class MainPizzeria{ // Main Class of the system
          } // This ends choice == 5
          
          else if (choice == 6) { // Exit the program
+         try {
+            FileWriter writer = new FileWriter("orders.txt", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            bufferedWriter.write("\n ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
+            bufferedWriter.close(); // Closes the file
+            writer.close();
+         } catch (IOException e) {
+            System.out.println(e.getMessage());
+         }
          keepRunning = false;
          } // This ends choice == 6
-         
-         
+
          else {
             System.out.println("Error. Please enter only the number that corresponds to the task you want to do ex. 3 or 1.");
          } 
@@ -58,7 +66,7 @@ public class MainPizzeria{ // Main Class of the system
     
    } // This ends main method
   
-   public static int Alfonso_sChoice() {
+   public static int Alfonso_sChoice() { // Method to handle Alfonso browsing the program's options
       do {
          try {
             Scanner alfonsoScanner = new Scanner(System.in);
@@ -210,6 +218,5 @@ public class MainPizzeria{ // Main Class of the system
          } while (true);
       }
    }
-      
 
 } // This ends the Main Class

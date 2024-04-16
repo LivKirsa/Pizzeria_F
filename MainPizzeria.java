@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class MainPizzeria{ // Main Class of the system
 
@@ -52,6 +55,31 @@ public class MainPizzeria{ // Main Class of the system
                Order scannerOrder = new Order(customerName, scannerOrderArrayList, timeReady); // Constructing an Order Object from the information collected with scanner
                OrdersOverview.orderList.add(scannerOrder); // Adding the Order Object to the orderList ArrayList in Class OrdersOverview
                scannerOrder.printOrder(); // Print information about the Order Object that was just constructed
+               
+               
+              try {
+               // Open the file for writing
+              FileWriter writer = new FileWriter("orders.txt", true); // Append to existing file (optional)
+              BufferedWriter bufferedWriter = new BufferedWriter(writer);
+               
+               // Write order details (replace with actual attribute access methods)
+               bufferedWriter.write("Customer Name: " + scannerOrder.getCustomerName() + "\n");
+               bufferedWriter.write("Pizzas Ordered: ");
+               for (Pizza pizza : scannerOrder.getOrderedPizzas()) {
+                 bufferedWriter.write(pizza.getName() + ", ");
+               }
+               bufferedWriter.write("\n");
+               bufferedWriter.write("Pickup Time: " + scannerOrder.getTimeReady() + "\n");
+               bufferedWriter.write("\n");
+               
+               // Close the file
+               bufferedWriter.close();
+               writer.close();
+               } catch (IOException e) {
+                  System.err.println("Error saving order details to file.");
+               }
+               System.out.println("Order details saved to orders.txt!");
+
       } // This ends choice == 2
                
       else if (choice == 3) { // Browse active orders
@@ -59,7 +87,7 @@ public class MainPizzeria{ // Main Class of the system
       } // This ends choice == 3
       
       else if (choice == 4) {
-         System.out.println("Feature not implemented yet. Please choose something else to do.");
+         System.out.println("Feature not implemented yet. Please choose something else to do.\n");
          } // This ends choice == 4
       
       else if (choice == 5) {

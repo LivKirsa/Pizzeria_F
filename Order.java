@@ -46,7 +46,8 @@ public class Order{
    public List<Pizza> getOrderedPizzas() {
       return orderedPizzas;
       }
-// Missing setter for orderedPizzas, as I am unsure how to handle this part of the code - Liv
+      
+// No setter for orderedPizzas, as that should not be changed
 
 // Getter for priceSum (total price for the entire order)
    public double getPriceSum() {
@@ -60,7 +61,7 @@ public class Order{
       return timeReady;
       }
 
-// Missing setter for timeReady, as I am unsure about how to handle this part of the code - Liv
+// No setter for timeReady, as that is handled manually elsewhere
       
 // Getter for isOrderActive. To know if the order has been completed or not
    public static boolean getIsOrderActive() {
@@ -93,7 +94,7 @@ public class Order{
             System.out.print(pizza.getNumber() + ", ");
       }
       System.out.print("Total Price: " + calculatePriceSum() + " DKK.\n");
-      }
+   }
        
  
    // Method for calculating sum of ordered pizzas

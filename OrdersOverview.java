@@ -4,9 +4,6 @@ public class OrdersOverview { // This class enables the main method to construct
 
    public static ArrayList<Order> orderList = new ArrayList<>();
    
-// Getter for 
-   
-   
 // Method for printing the orderList
    public static void printOrderList() { 
       System.out.println("Order List: ");
@@ -24,4 +21,3 @@ public class OrdersOverview { // This class enables the main method to construct
       }
    }
 }
-   

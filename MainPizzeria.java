@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
+import java.lang.StringIndexOutOfBoundsException;
 
 public class MainPizzeria{ // Main Class of the system
 
@@ -15,14 +16,13 @@ public class MainPizzeria{ // Main Class of the system
       Menu menu = new Menu();
       boolean keepRunning = true; // Makes the program restart aftet finished task, unless (5) Quit is chosen (choice == 5)
       while (keepRunning) {
-         int choice = Alfonso_sChoice();
+         int choice = alfonso_sChoice();
          
          if (choice == 1) { // Print the menu
             menu.printMenuList();
          } // This ends choice == 1
          
          else if (choice == 2) { // Create new order
-            Scanner scanner1 = new Scanner(System.in);
             int pizzas = pizzasScan();
             List<Pizza> scannerOrderArrayList = pizzaChoice(pizzas);
             System.out.println("You ordered " + scannerOrderArrayList.size() + " pizzas.");
@@ -46,16 +46,7 @@ public class MainPizzeria{ // Main Class of the system
          } // This ends choice == 5
          
          else if (choice == 6) { // Exit the program
-         try {
-            FileWriter writer = new FileWriter("orders.txt", true);
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            bufferedWriter.write("\n ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
-            bufferedWriter.close(); // Closes the file
-            writer.close();
-         } catch (IOException e) {
-            System.out.println(e.getMessage());
-         }
-         keepRunning = false;
+            keepRunning = quitProgram();
          } // This ends choice == 6
 
          else {
@@ -66,7 +57,7 @@ public class MainPizzeria{ // Main Class of the system
     
    } // This ends main method
   
-   public static int Alfonso_sChoice() { // Method to handle Alfonso browsing the program's options
+   public static int alfonso_sChoice() { // Method to handle Alfonso browsing the program's options
       do {
          try {
             Scanner alfonsoScanner = new Scanner(System.in);
@@ -140,7 +131,7 @@ public class MainPizzeria{ // Main Class of the system
    public static String takeName() { // Method for taking the customer's name
       Scanner nameScanner = new Scanner(System.in);
       System.out.println("What is your name?\n");
-      String customerName = nameScanner.next();
+      String customerName = nameScanner.nextLine();
       System.out.println("\nHi, " + customerName);
       return customerName;
    }
@@ -150,7 +141,7 @@ public class MainPizzeria{ // Main Class of the system
       System.out.println("When would you like to pick up your order?\nPlease write in the hh:mm format ex. 18:30 or 09:15.");
       do {
          try {
-            String timeString = timeScanner.next();
+            String timeString = timeScanner.nextLine();
             if (timeString.length() == 4) { // This adds a 0 in front of the time input if it is forgotten ex. 9:40 instead of 09:40
                timeString = "0" + timeString;
             }
@@ -165,6 +156,8 @@ public class MainPizzeria{ // Main Class of the system
          } catch (DateTimeException e) {
             System.err.println("Error. Input needs to be a time written in the hh:mm format ex. 18:30 or 09:15. Try again." + e.getMessage());
          } catch (NumberFormatException e) {
+            System.err.println("Error. Input needs to be a time written in the hh:mm format ex. 18:30 or 09:15. Try again.");
+         } catch (StringIndexOutOfBoundsException e) {
             System.err.println("Error. Input needs to be a time written in the hh:mm format ex. 18:30 or 09:15. Try again.");
          }
       } while (true);
@@ -202,21 +195,35 @@ public class MainPizzeria{ // Main Class of the system
       Scanner inactiveScanner = new Scanner(System.in);
       if (OrdersOverview.orderList.size() < 1) {
          System.out.println("The Order List is empty. Add an Order to the Order List by choosing (2) Create a new Order.\n");
-      } else {
-         do {
-            System.out.println("Enter the orderID of the order you wish to set as Inactive"); 
-            try {
-               int orderIDToInactive = inactiveScanner.nextInt() - 1;
-               Order orderToInactive = OrdersOverview.orderList.get(orderIDToInactive);
-               orderToInactive.setIsOrderActive(false);
-               System.out.println("Order with ID " + (orderIDToInactive + 1) + " is now Inactive");
-            } catch (IndexOutOfBoundsException e) {
-               System.out.println("Error. " + e.getMessage());
-            } catch (InputMismatchException e) {
-               System.out.println("Error. " + e.getMessage());
-            }
-         } while (true);
+      } else { 
+            do { 
+               try {
+                  System.out.println("Enter the orderID of the order you wish to set as Inactive");
+                  int orderIDToInactive = inactiveScanner.nextInt(); 
+                  Order orderToInactive = OrdersOverview.orderList.get(orderIDToInactive - 1);
+                  orderToInactive.setIsOrderActive(false);
+                  System.out.println("Order with ID " + (orderIDToInactive) + " is now Inactive");
+               } catch (InputMismatchException e) {
+                  System.err.println("Error. Not a valid Order ID");
+                  inactiveScanner.next(); // This solves a weird problem, where if the console input was ex. "k" and nothing else, the Scanner would save the input before looping, and keep looping, giving the same error message again and again.
+               } catch (IndexOutOfBoundsException e) {
+                  System.err.println("Error. Not a valid Order ID");
+               }
+          } while (true);
       }
+   }
+   
+   public static boolean quitProgram() {
+         try {
+            FileWriter writer = new FileWriter("orders.txt", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            bufferedWriter.write("\n ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
+            bufferedWriter.close(); // Closes the file
+            writer.close();
+         } catch (IOException e) {
+            System.out.println(e.getMessage());
+      }
+      return false;
    }
 
 } // This ends the Main Class

@@ -4,11 +4,23 @@ public class OrdersOverview { // This class enables the main method to construct
 
    public static ArrayList<Order> orderList = new ArrayList<>();
    
+// Getter for 
+   
+   
 // Method for printing the orderList
    public static void printOrderList() { 
       System.out.println("Order List: ");
          for (Order order : orderList) {
-         order.printOrder();
+         order.printOrderCompact();
+      }
+   }
+   public static void printActiveOrders() {
+      System.out.println("Active Orders: ");
+      for (Order order : orderList) {
+         boolean isOrderActive = Order.getIsOrderActive();
+         if (isOrderActive == true) {
+            order.printOrderCompact();
+         }
       }
    }
 }

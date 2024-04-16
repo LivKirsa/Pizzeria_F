@@ -8,7 +8,7 @@ public class Order{
    private double priceSum;
    private int orderID;
    private String customerName;
-   private boolean isOrderActive;
+   private static boolean isOrderActive;
    private List<Pizza> orderedPizzas;
    
    private static int counter = 1;
@@ -63,7 +63,7 @@ public class Order{
 // Missing setter for timeReady, as I am unsure about how to handle this part of the code - Liv
       
 // Getter for isOrderActive. To know if the order has been completed or not
-   public boolean getIsOrderActive() {
+   public static boolean getIsOrderActive() {
       return isOrderActive;
       }
       
@@ -85,6 +85,16 @@ public class Order{
     System.out.println("Desired Ready Time: " + timeReady);
     System.out.println("Order Status: " + (isOrderActive ? "Active" : "Inactive")); // Calls the isOrderActive method from this class with type boolean. Returns "Active" if true, "Inactive" if false. 
   }
+  
+  // Method to print compact order details on a single line
+   public void printOrderCompact() {
+      System.out.print("[" + orderID + "] " + (isOrderActive ? "Active " : "Inactive ") + timeReady + " >" + customerName + "< Pizzas: ");
+      for (Pizza pizza : orderedPizzas) {
+            System.out.print(pizza.getNumber() + ", ");
+      }
+      System.out.print("Total Price: " + calculatePriceSum() + " DKK.\n");
+      }
+       
  
    // Method for calculating sum of ordered pizzas
     public double calculatePriceSum(){ 

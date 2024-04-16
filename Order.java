@@ -63,12 +63,12 @@ public class Order{
 // Missing setter for timeReady, as I am unsure about how to handle this part of the code - Liv
       
 // Getter for isOrderActive. To know if the order has been completed or not
-   public boolean isOrderActive() {
+   public boolean getIsOrderActive() {
       return isOrderActive;
       }
       
 // Setter for isOrderActive. Set false to mark the order inactive/completed and delivered to customer. Set true to mark the order active/still being made
-   public void setOrderActive(boolean isOrderActive) {
+   public void setIsOrderActive(boolean isOrderActive) {
       this.isOrderActive = isOrderActive;
       }
 

@@ -3,7 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.InputMismatchException;
 import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.DateTimeException;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,9 +16,9 @@ import java.lang.StringIndexOutOfBoundsException;
 
 public class MainPizzeria{ // Main Class of the system
 
-   public static void main (String [] args){ // Main method of the system
+   public static void main(String [] args){ // Main method of the system
       Menu menu = new Menu();
-      boolean keepRunning = true; // Makes the program restart aftet finished task, unless (5) Quit is chosen (choice == 5)
+      boolean keepRunning = true; // Makes the program restart after finished task, unless (6) Quit is chosen (choice == 6)
       while (keepRunning) {
          int choice = alfonso_sChoice();
          
@@ -50,7 +54,7 @@ public class MainPizzeria{ // Main Class of the system
          } // This ends choice == 6
 
          else {
-            System.out.println("Error. Please enter only the number that corresponds to the task you want to do ex. 3 or 1.");
+            System.out.println("Error. Please enter only the number that corresponds to the task you want to do ex. 3 or 1."); // If Alfonso types anything other than 1, 2, 3, 4, 5, 6
          } 
          
       } // This ends while (keepRunning = true)
@@ -85,13 +89,13 @@ public class MainPizzeria{ // Main Class of the system
       do {
          System.out.println("How many pizzas would you like to order? ");
          try {
-         Scanner pizzaScanner = new Scanner(System.in);
-         pizzas = pizzaScanner.nextInt();
-            if (pizzas > maxPizzas) {
-               System.err.println("Sorry, we cannot handle orders larger than " + maxPizzas + " pizzas."); // This makes no sense, as Alfonso is the one taking the orders. We just did it for fun. Can be used for future online system. 
-            continue;
-            }
-         return pizzas; // Exits the loop if a valid amount of pizzas is entered
+            Scanner pizzaScanner = new Scanner(System.in);
+            pizzas = pizzaScanner.nextInt();
+               if (pizzas > maxPizzas) {
+                  System.err.println("Sorry, we cannot handle orders larger than " + maxPizzas + " pizzas."); // This makes no sense, as Alfonso is the one taking the orders. We just did it for fun. Can be used for future online system. 
+               continue;
+               }
+            return pizzas; // Exits the loop if a valid amount of pizzas is entered
       } catch (InputMismatchException e) {
          System.err.println("Error. Please enter a number ex. 5 or 2."); 
          }
@@ -107,7 +111,7 @@ public class MainPizzeria{ // Main Class of the system
                int[] tempArray = new int[pizzas]; // Temporary array
                tempArray[i] = pickNr;
                scannerOrderArrayList.add(Menu.menuList.get(pickNr - 1));
-             }  
+             }
             return scannerOrderArrayList; 
   }
   
@@ -173,11 +177,12 @@ public class MainPizzeria{ // Main Class of the system
          // Creates and opens the file for writing
          FileWriter writer = new FileWriter("orders.txt", true);
          BufferedWriter bufferedWriter = new BufferedWriter(writer);
-                     
+         
          // Writes order details in file
          
-         bufferedWriter.write("[" + scannerOrder.getOrderID() + "] " + (scannerOrder.getIsOrderActive() ? "Active " : "Inactive ") + 
-         scannerOrder.getTimeReady() + " >" + scannerOrder.getCustomerName() + "< Pizzas: ");
+         bufferedWriter.write("[" + scannerOrder.getOrderID() + "] " + scannerOrder.getTimeReady() + 
+         (scannerOrder.getIsOrderActive() ? " Active " : "Inactive ") +
+          " >" + scannerOrder.getCustomerName() + "< Pizzas: ");
          for (Pizza pizza : scannerOrder.getOrderedPizzas()) {
             bufferedWriter.write(pizza.getNumber() + ", ");
          }
@@ -193,10 +198,10 @@ public class MainPizzeria{ // Main Class of the system
    
    public static void setStatus() {// Change the status of an order from Active to Inactive
       Scanner inactiveScanner = new Scanner(System.in);
+      do {
       if (OrdersOverview.orderList.size() < 1) {
          System.out.println("The Order List is empty. Add an Order to the Order List by choosing (2) Create a new Order.\n");
       } else { 
-            do { 
                try {
                   System.out.println("Enter the orderID of the order you wish to set as Inactive");
                   int orderIDToInactive = inactiveScanner.nextInt(); 
@@ -209,15 +214,15 @@ public class MainPizzeria{ // Main Class of the system
                } catch (IndexOutOfBoundsException e) {
                   System.err.println("Error. Not a valid Order ID");
                }
-          } while (true);
-      }
+         }
+      } while (true);
    }
    
    public static boolean quitProgram() {
          try {
             FileWriter writer = new FileWriter("orders.txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            bufferedWriter.write("\n ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
+            bufferedWriter.write("\n ________________________________" + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
             bufferedWriter.close(); // Closes the file
             writer.close();
          } catch (IOException e) {

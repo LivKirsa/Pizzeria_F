@@ -1,4 +1,4 @@
-public class Pizza{ //class for dealing with object
+public class Pizza{
 
    
    private String name; // Name of the pizza ex. Margharita

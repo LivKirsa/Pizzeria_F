@@ -8,7 +8,7 @@ public class Order{
    private double priceSum;
    private int orderID;
    private String customerName;
-   private boolean isOrderActive;
+   private static boolean isOrderActive;
    private List<Pizza> orderedPizzas;
    
    private static int counter = 1;
@@ -46,7 +46,8 @@ public class Order{
    public List<Pizza> getOrderedPizzas() {
       return orderedPizzas;
       }
-// Missing setter for orderedPizzas, as I am unsure how to handle this part of the code - Liv
+      
+// No setter for orderedPizzas, as that should not be changed
 
 // Getter for priceSum (total price for the entire order)
    public double getPriceSum() {
@@ -60,10 +61,10 @@ public class Order{
       return timeReady;
       }
 
-// Missing setter for timeReady, as I am unsure about how to handle this part of the code - Liv
+// No setter for timeReady, as that is handled manually elsewhere
       
 // Getter for isOrderActive. To know if the order has been completed or not
-   public boolean getIsOrderActive() {
+   public static boolean getIsOrderActive() {
       return isOrderActive;
       }
       
@@ -85,13 +86,23 @@ public class Order{
     System.out.println("Desired Ready Time: " + timeReady);
     System.out.println("Order Status: " + (isOrderActive ? "Active" : "Inactive")); // Calls the isOrderActive method from this class with type boolean. Returns "Active" if true, "Inactive" if false. 
   }
+  
+  // Method to print compact order details on a single line
+   public void printOrderCompact() {
+      System.out.print("[" + orderID + "] " + (isOrderActive ? "Active " : "Inactive ") + timeReady + " >" + customerName + "< Pizzas: ");
+      for (Pizza pizza : orderedPizzas) {
+            System.out.print(pizza.getNumber() + ", ");
+      }
+      System.out.print("Total Price: " + calculatePriceSum() + " DKK.\n");
+   }
+       
  
    // Method for calculating sum of ordered pizzas
     public double calculatePriceSum(){ 
       double sum = 0; 
       for (Pizza pizza : orderedPizzas){
-         sum += pizza.getPrice(); //getPrice is the getter for price in the pizza class. The '+=' operation takes the price of each Pizza in orderedPizzas and adds them to the sum : int.
+         sum += pizza.getPrice(); // getPrice is the getter for price in the pizza class. The '+=' operation takes the price of each Pizza in orderedPizzas and adds them to the sum : int.
       }
-      return sum; //Returns the sum calculated above as a double
+      return sum; // Returns the sum calculated above as a double
    }
 }

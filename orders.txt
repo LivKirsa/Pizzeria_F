@@ -1,8 +1,0 @@
-[1] 12:30 Active  >Livtest1< Pizzas: 4, Total Price: 63.0 DKK.
-
-[1] 11:11 Active  >1< Pizzas: 1, Total Price: 57.0 DKK.
-
-
- ________________________________2024-04-17 14:39 Program was Quit. Assignment of orderIDs has been reset__________________________________ 
-
- ________________________________2024-04-17 14:41 Program was Quit. Assignment of orderIDs has been reset__________________________________ 

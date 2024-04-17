@@ -95,6 +95,10 @@ public class MainPizzeria{ // Main Class of the system
                   System.err.println("The system does not handle orders larger than " + maxPizzas + " pizzas."); // This makes no sense, as Alfonso is the one taking the orders. We just did it for fun. Can be used for future online system. 
                continue;
                }
+               if (pizzas < 1) {
+                  System.err.println("Please add at least 1 pizza");
+               continue;
+               }
             return pizzas; // Exits the loop if a valid amount of pizzas is entered
       } catch (InputMismatchException e) {
          System.err.println("Error. Please enter a number ex. 5 or 2."); 
@@ -121,13 +125,15 @@ public class MainPizzeria{ // Main Class of the system
          Scanner pickScanner = new Scanner(System.in);
             try {
                pick = pickScanner.nextInt();
-                  if (pick > Menu.menuList.size()) {
+                  if (pick > Menu.menuList.size() || pick < 1) {
                      System.err.println("Error. There is not a pizza on the menu with that number. Please choose a number from the menu.");
                      continue;
                   }
                return pick;
             } catch (InputMismatchException e) {
                System.err.println("Error. Input must be a number and nothing else. Please choose a number from the menu.");
+            } catch (IndexOutOfBoundsException e) {
+               System.err.println("Error. There is not a pizza on the menu with that number. Please choose number from the menu.");
             }
      } while (true);
   }

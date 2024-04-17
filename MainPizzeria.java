@@ -29,7 +29,7 @@ public class MainPizzeria{ // Main Class of the system
          else if (choice == 2) { // Create new order
             int pizzas = pizzasScan();
             List<Pizza> scannerOrderArrayList = pizzaChoice(pizzas);
-            System.out.println("You ordered " + scannerOrderArrayList.size() + " pizzas.");
+            System.out.println("Added " + scannerOrderArrayList.size() + " pizzas to the Order.");
             String customerName = takeName();
             LocalTime timeReady = takeTime();
             Order scannerOrder = new Order(customerName, scannerOrderArrayList, timeReady); // Constructing an Order Object from the collected information
@@ -45,7 +45,7 @@ public class MainPizzeria{ // Main Class of the system
             OrdersOverview.printActiveOrders();
             } // This ends choice == 4
          
-         else if (choice == 5) { // Set an order as Inactive
+         else if (choice == 5) { // Set an Order as Inactive
             setStatus();
          } // This ends choice == 5
          
@@ -87,12 +87,12 @@ public class MainPizzeria{ // Main Class of the system
       int maxPizzas = 10;
       
       do {
-         System.out.println("How many pizzas would you like to order? ");
+         System.out.println("How many pizzas would you like to add to the Order? ");
          try {
             Scanner pizzaScanner = new Scanner(System.in);
             pizzas = pizzaScanner.nextInt();
                if (pizzas > maxPizzas) {
-                  System.err.println("Sorry, we cannot handle orders larger than " + maxPizzas + " pizzas."); // This makes no sense, as Alfonso is the one taking the orders. We just did it for fun. Can be used for future online system. 
+                  System.err.println("The system does not handle orders larger than " + maxPizzas + " pizzas."); // This makes no sense, as Alfonso is the one taking the orders. We just did it for fun. Can be used for future online system. 
                continue;
                }
             return pizzas; // Exits the loop if a valid amount of pizzas is entered
@@ -106,7 +106,7 @@ public class MainPizzeria{ // Main Class of the system
       int pickNr;
          List<Pizza> scannerOrderArrayList = new ArrayList<>();
             for (int i = 0; i < pizzas; i++){ // Store the chosen pizzas in an ArrayList scannerOrderArrayList
-               System.out.print("Pizza nr. " + (i + 1) + " for your order is: ");
+               System.out.print("Pizza nr. " + (i + 1) + " for the order is: ");
                pickNr = pizzaPick();
                int[] tempArray = new int[pizzas]; // Temporary array
                tempArray[i] = pickNr;
@@ -134,26 +134,27 @@ public class MainPizzeria{ // Main Class of the system
   
    public static String takeName() { // Method for taking the customer's name
       Scanner nameScanner = new Scanner(System.in);
-      System.out.println("What is your name?\n");
+      System.out.println("What is the customer's name?\n");
       String customerName = nameScanner.nextLine();
-      System.out.println("\nHi, " + customerName);
+      System.out.println("\nCustomer Name: " + customerName);
       return customerName;
    }
    
    public static LocalTime takeTime() { // Method for taking the time that the order should be ready. 
       Scanner timeScanner = new Scanner(System.in);
-      System.out.println("When would you like to pick up your order?\nPlease write in the hh:mm format ex. 18:30 or 09:15.");
+      System.out.println("When should the order be done?\nPlease write in the hh:mm format ex. 18:30 or 09:15.");
       do {
          try {
             String timeString = timeScanner.nextLine();
             if (timeString.length() == 4) { // This adds a 0 in front of the time input if it is forgotten ex. 9:40 instead of 09:40
                timeString = "0" + timeString;
             }
-            // Formatter for changing string input from HH:MM to something LocalTime can read
-            int pickupIntH = Integer.parseInt(timeString.substring(0,2)); 
-            int pickupIntM = Integer.parseInt(timeString.substring(3,5));
-            LocalTime timeReady = LocalTime.of(pickupIntH, pickupIntM);
-            System.out.println("Your time for pickup is: " + timeReady);
+            // Formatter for changing string input from HH:MM to something LocalTime can read. 
+            // This code works, but is very weird and very bad and I am not proud of it. I am so tired. - Liv
+            int pickupIntH = Integer.parseInt(timeString.substring(0,2)); // Turn first two characters of timeString into an int pickupIntH
+            int pickupIntM = Integer.parseInt(timeString.substring(3,5)); // Turn last two characters of timeString into an int pickupIntM
+            LocalTime timeReady = LocalTime.of(pickupIntH, pickupIntM); // Combine both ints to create a LocalTime timeReady
+            System.out.println("Time for pickup is: " + timeReady);
             return timeReady;
          } catch (InputMismatchException e) {
             System.err.println("Error. Input needs to be a time written in the hh:mm format ex. 18:30 or 09:15. Try again.");
@@ -163,7 +164,7 @@ public class MainPizzeria{ // Main Class of the system
             System.err.println("Error. Input needs to be a time written in the hh:mm format ex. 18:30 or 09:15. Try again.");
          } catch (StringIndexOutOfBoundsException e) {
             System.err.println("Error. Input needs to be a time written in the hh:mm format ex. 18:30 or 09:15. Try again.");
-         }
+         } // Above is an example of how my code is so bad it needs four different catches.. 
       } while (true);
    }
    
@@ -213,7 +214,7 @@ public class MainPizzeria{ // Main Class of the system
                      break;
                   } catch (InputMismatchException e) {
                      System.err.println("Error. Not a valid Order ID");
-                     inactiveScanner.next(); // This solves a weird problem, where if the console input was ex. "k" and nothing else, the Scanner would save the input before looping, and keep looping, giving the same error message again and again.
+                     inactiveScanner.next(); // This solves a weird problem, where if the console input was ex. "k" and nothing else, the Scanner would save the input before looping, and keep looping, giving the same error message again and again. I do not understand it entirely.
                   } catch (IndexOutOfBoundsException e) {
                      System.err.println("Error. Not a valid Order ID");
                   }
@@ -223,14 +224,14 @@ public class MainPizzeria{ // Main Class of the system
    }
    
    public static boolean quitProgram() {
-         try {
+         try { // Adds an informative line of text in orders.txt whenever the program is quit using the option (6) from Alfonso's Choice
             FileWriter writer = new FileWriter("orders.txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            // What is written below makes no sense to us yet
+            // What is written below makes little sense to me yet. But it works so yolo - Liv
             bufferedWriter.write("\n ________________________________" + 
             LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + 
             " Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
-            bufferedWriter.close(); // Closes the file
+            bufferedWriter.close();
             writer.close();
          } catch (IOException e) {
             System.out.println(e.getMessage());

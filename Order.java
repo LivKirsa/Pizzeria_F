@@ -101,8 +101,8 @@ public class Order{
     public double calculatePriceSum(){ 
       double sum = 0; 
       for (Pizza pizza : orderedPizzas){
-         sum += pizza.getPrice(); //getPrice is the getter for price in the pizza class. The '+=' operation takes the price of each Pizza in orderedPizzas and adds them to the sum : int.
+         sum += pizza.getPrice(); // getPrice is the getter for price in the pizza class. The '+=' operation takes the price of each Pizza in orderedPizzas and adds them to the sum : int.
       }
-      return sum; //Returns the sum calculated above as a double
+      return sum; // Returns the sum calculated above as a double
    }
 }

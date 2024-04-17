@@ -1,26 +1,8 @@
-[1] Active 02:00 >Solvej, Caroline og Liv og Mario< Pizzas: 23, 16, 24, 5, Total Price: 250.0 DKK.
+[1] 12:30 Active  >Livtest1< Pizzas: 4, Total Price: 63.0 DKK.
 
-[1] Active 11:11 >1< Pizzas: 1, Total Price: 57.0 DKK.
-
-
- ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ 
-[1] 11:11Active  >1< Pizzas: 1, Total Price: 57.0 DKK.
-
-[1] 15:30 Active  >Livtest< Pizzas: 7, 13, Total Price: 122.0 DKK.
-
-[1] 12:30 Active  >Livtest2< Pizzas: 14, 12, 2, Total Price: 175.0 DKK.
+[1] 11:11 Active  >1< Pizzas: 1, Total Price: 57.0 DKK.
 
 
- ________________________________Program was Quit. Assignment of orderIDs has been reset__________________________________ 
+ ________________________________2024-04-17 14:39 Program was Quit. Assignment of orderIDs has been reset__________________________________ 
 
- ________________________________Program was Quit. Assignment of orderIDs has been reset12:20:03.321838500__________________________________ 
-
- ________________________________Program was Quit. Assignment of orderIDs has been reset2024-04-17__________________________________ 
-
- ________________________________2024-04-17Program was Quit. Assignment of orderIDs has been reset__________________________________ 
-
- ________________________________2024-04-17 Program was Quit. Assignment of orderIDs has been reset__________________________________ 
-
- ________________________________2024-04-17T12:24:44.246638500 Program was Quit. Assignment of orderIDs has been reset__________________________________ 
-
- ________________________________2024-04-17 12:28 Program was Quit. Assignment of orderIDs has been reset__________________________________ 
+ ________________________________2024-04-17 14:41 Program was Quit. Assignment of orderIDs has been reset__________________________________ 

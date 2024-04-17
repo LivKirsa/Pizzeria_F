@@ -180,8 +180,8 @@ public class MainPizzeria{ // Main Class of the system
          
          // Writes order details in file
          
-         bufferedWriter.write("[" + scannerOrder.getOrderID() + "] " + scannerOrder.getTimeReady() + 
-         (scannerOrder.getIsOrderActive() ? " Active " : "Inactive ") +
+         bufferedWriter.write("[" + scannerOrder.getOrderID() + "] " + 
+         scannerOrder.getTimeReady() +
           " >" + scannerOrder.getCustomerName() + "< Pizzas: ");
          for (Pizza pizza : scannerOrder.getOrderedPizzas()) {
             bufferedWriter.write(pizza.getNumber() + ", ");
@@ -198,31 +198,38 @@ public class MainPizzeria{ // Main Class of the system
    
    public static void setStatus() {// Change the status of an order from Active to Inactive
       Scanner inactiveScanner = new Scanner(System.in);
-      do {
-      if (OrdersOverview.orderList.size() < 1) {
-         System.out.println("The Order List is empty. Add an Order to the Order List by choosing (2) Create a new Order.\n");
-      } else { 
-               try {
-                  System.out.println("Enter the orderID of the order you wish to set as Inactive");
-                  int orderIDToInactive = inactiveScanner.nextInt(); 
-                  Order orderToInactive = OrdersOverview.orderList.get(orderIDToInactive - 1);
-                  orderToInactive.setIsOrderActive(false);
-                  System.out.println("Order with ID " + (orderIDToInactive) + " is now Inactive");
-               } catch (InputMismatchException e) {
-                  System.err.println("Error. Not a valid Order ID");
-                  inactiveScanner.next(); // This solves a weird problem, where if the console input was ex. "k" and nothing else, the Scanner would save the input before looping, and keep looping, giving the same error message again and again.
-               } catch (IndexOutOfBoundsException e) {
-                  System.err.println("Error. Not a valid Order ID");
-               }
+
+         if (OrdersOverview.orderList.size() < 1) {
+            System.out.println("The Order List is empty. Add an Order to the Order List by choosing (2) Create a new Order.\n");
+         } else { 
+               boolean retry = true;
+               do {
+                  try {
+                     System.out.println("Enter the orderID of the order you wish to set as Inactive");
+                     int orderIDToInactive = inactiveScanner.nextInt();
+                     Order orderToInactive = OrdersOverview.orderList.get(orderIDToInactive - 1);
+                     orderToInactive.setIsOrderActive(false);
+                     System.out.println("Order with ID " + (orderIDToInactive) + " is now Inactive");
+                     break;
+                  } catch (InputMismatchException e) {
+                     System.err.println("Error. Not a valid Order ID");
+                     inactiveScanner.next(); // This solves a weird problem, where if the console input was ex. "k" and nothing else, the Scanner would save the input before looping, and keep looping, giving the same error message again and again.
+                  } catch (IndexOutOfBoundsException e) {
+                     System.err.println("Error. Not a valid Order ID");
+                  }
+                     
+               } while (retry = true);
          }
-      } while (true);
    }
    
    public static boolean quitProgram() {
          try {
             FileWriter writer = new FileWriter("orders.txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            bufferedWriter.write("\n ________________________________" + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
+            // What is written below makes no sense to us yet
+            bufferedWriter.write("\n ________________________________" + 
+            LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + 
+            " Program was Quit. Assignment of orderIDs has been reset__________________________________ \n");
             bufferedWriter.close(); // Closes the file
             writer.close();
          } catch (IOException e) {
